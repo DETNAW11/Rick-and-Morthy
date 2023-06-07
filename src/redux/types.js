@@ -1,0 +1,6 @@
+export const ADD_FAVORITES = 'ADD_FAVORITES';
+export const REMOVE_FAVORITES = 'REMOVE_FAVORITES';
+export const REMOVE_FAVORITE_CHARACTER = 'REMOVE_FAVORITE_CHARACTER';
+export const FILTER  = 'FILTER';
+export const ORDER  = 'ORDER';
+export const SHOW_ALERT = 'SHOW_ALERT';

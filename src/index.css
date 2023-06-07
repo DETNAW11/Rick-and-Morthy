@@ -1,0 +1,65 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------------------- */
+.login-background{
+  background-image: url('./components/images/LOGIN\ IMAGE.jpg');
+  background-size: 100%;
+  background-attachment:fixed;
+  background-repeat: no-repeat;
+  backdrop-filter: blur(7px) brightness(0.31);
+  height: 100vw; 
+  overflow: auto;
+}
+
+.home-background{
+  background-image: url('./components/images/HOME\ IMAGE.jpg');
+  background-size: 100%;
+  background-attachment:fixed;
+  background-repeat: no-repeat;
+  backdrop-filter: blur(7px) brightness(0.31);
+  height: 100vw; 
+  overflow: auto;
+}
+.favorites-background{
+  background-image: url('./components/images/FAVORITES\ IMAGE.gif');
+  background-size: 100%;
+  background-attachment:fixed;
+  background-repeat: no-repeat;
+  backdrop-filter: blur(7px) brightness(0.31);
+  height: 100vw; 
+  overflow: auto;
+}
+.detail-background{
+  background-image: url('./components/images/DETAIL\ IMAGE.gif');
+  background-size: 100%;
+  background-attachment:fixed;
+  background-repeat: no-repeat;
+  backdrop-filter: blur(7px) brightness(0.31);
+  height: 100vw; 
+  overflow: auto;
+}
+.about-background{
+  background-image: url('./components/images/rick-and-morty\ fondlogin.jpg');
+  background-size: 100%;
+  background-attachment:fixed;
+  background-repeat: no-repeat;
+  backdrop-filter: blur(7px) brightness(0.31);
+  height: 100vw; 
+  overflow: auto;
+}
+/* ---------------------- */
+
+
+/* ---------------------- */
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+/* ---------------------- */

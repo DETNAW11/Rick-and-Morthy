@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    backdrop-filter: blur(2px);
+    z-index: 99;
+    position: absolute;
+  }
+  
+  .containerAlert {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    flex-direction: column;
+    width: 300px;
+    height: 300px;
+    background-color: rgba(0, 0, 0, 0.39);
+    border-radius: 10px;
+    z-index: 99;
+    position: absolute;
+  }
+  
+  .containerAlert button {
+    width: 100px;
+    height: 40px;
+  }
+  
