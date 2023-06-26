@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'MyFont';
+  src: url('../Fonts/shlop\ rg.otf');
+}
+
+.cardList {
+  max-width: 80vw;
+  margin-bottom: 30px;
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 70px;
+}

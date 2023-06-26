@@ -1,186 +1,110 @@
-/* COMPONENTES */
-import Cards from './components/Cards/Cards'
-import NavBar from './components/Nav/Nav'
-import About from './components/About/About'
-import Detail from './components/Detail/Detail'
-import Form from './components/Form/Form'
-import Error from './components/Error404/Error'
-import Favorites from './components/Favorites/Favorites'
-import styles from './components/Card/cardesign.module.css'
-/* ------ */
+import {useState, useEffect} from "react";
+import axios from "axios";
+import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {removeFavorite} from "./redux/actions";
+import Detail from "./views/detail/detail";
+import About from "./views/about/about";
+import Cards from "./components/cards/Cards";
+import logoRM from "./assets/logorm.png";
+import Navbar from "./components/navbar/Navbar";
 
+import ErrorPage from "./views/error/errorPage";
+import LandingPage from "./views/landingPage/landingPage";
+import Favorties from "./views/favorites/favorties";
 
-/* HOOKS */
-import { useState, useEffect } from 'react'
-import { Routes, Route, useLocation, useNavigate} from 'react-router-dom'
-import swal from 'sweetalert'
-/* ------ */
+import "./App.css";
 
+function App() {
+  const [characters, setCharacters] = useState([]);
+  const [access, setAccess] = useState(true);
 
-function App () {
   const location = useLocation();
   const navigate = useNavigate();
-   const [characters, setCharacters] = useState([]);
-   const [access, setAccess] = useState(false);
-   
-   const username = "alejito.prieto05@gmail.com";
-   const password = "Alejandro#0"; 
-   
+  const dispatch = useDispatch();
 
-   const login = (userData) => {
-    if(userData.username === username && userData.password === password){
-      setAccess(true);
-      navigate('/home');
-    }
-   }
-   
-   useEffect(() => {
-    if(!access && !['/', '/home', '/favorites', '/about'].includes(location.pathname) ){
-      navigate('/error404');
-    }
-   }, [access]);
-    
-   useEffect(() => {
-
-     // Limpiar clases antiguas
-     document.body.classList.remove('login-background', 'home-background', 'favorites-background', 'about-background', 'detail-background');
-
-    // Agregar clase correspondiente a la ruta actual
-    if (location.pathname === '/') {
-      document.body.classList.add('login-background');
-    }  
-    if (location.pathname === '/home') {
-      document.body.classList.add('home-background');
-    } 
-     if (location.pathname === '/favorites') {
-      document.body.classList.add('favorites-background');
-    }  
-    if (location.pathname === '/about') {
-      document.body.classList.add('about-background');
-    }  
-    if (location.pathname.startsWith('/detail/')) {
-      const id = location.pathname.split('/detail/')[1];
-      document.body.classList.add('detail-background');
-    } 
-    if (location.pathname === '/error404'){
-      document.body.classList.add('detail-background');
-    }
-
-  }, [location]);
-
-
-   const showErrorAlert = () => {
-    swal({
-      title: "There are no characters with that ID",
-      icon: "warning",
-      customClass: {
-        container: "my-swal",
-      },
-      position: "center",
+  function login(userData) {
+    const {email, password} = userData;
+    const URL = "http://localhost:3001/rickandmorty/login/";
+    axios(URL + `?email=${email}&password=${password}`).then(({data}) => {
+      const {access} = data; // true o false
+      setAccess(data);
+      access && navigate("/home");
     });
-  };
-
-  const showCharacterEqual = () => {
-    swal({
-      title: "This character has already been found",
-      icon: "warning",
-      customClass: {
-        container: "my-swal",
-      },
-      position: "center",
-      })
   }
-    
-    const onSearch = (newCharacter) => {
-    const URL_BASE = "http://localhost:3001/rickandmorty/character/"; // esta para el proyecto integrador
-    // const URL_BASE = "https://rickandmortyapi.com/api/character/";
-      fetch(`${URL_BASE}/${newCharacter}`)
-      .then((response) => response.json())
-      .then((data) => {
-         if (data.name) {
-          const existingCharacter = characters.find(character => character.id === data.id);
 
-          if (existingCharacter) {
-            showCharacterEqual();
-          } 
-          
-          else {
-            setCharacters((oldChars) => [...oldChars, data]);
-          }
-        } 
-        
-          else {
-          showErrorAlert();
-         }
-         
+  useEffect(() => {
+    !access && navigate("/");
+  }, [access]);
 
-      });
-        
-    }
+  function searchHandler(id) {
+    // setCharacters([...characters, example]);
 
-   const onClose = (id) => {
-    swal({
-      title: "Are you sure?",
-      text: "Once removed, it will also be removed from the favorites list.",
-      icon: "warning",
-      buttons: ["Cancel", "Delete"],
-      dangerMode: true,
-    })
-    .then((willDelete) => {
-      if (willDelete) {
-        setCharacters(characters.filter((character) => character.id !== id));
-        swal("The character has been removed!", {
-          icon: "success",
-        });
-      } else {
-        swal("The character has not been removed.");
+    axios(`http://localhost:3001/rickandmorty/character/${id}`).then(
+      ({data}) => {
+        if (data.name) {
+          setCharacters((oldChars) => [...oldChars, data]);
+        } else {
+          window.alert("¡No hay personajes con este ID!");
+        }
       }
-    });
-  };
-    
-  const randomCharacter = () => {
-    const idRandom = Math.floor(Math.random() * 826);
-    onSearch(idRandom);
- }
+    );
+  }
+
+  function closeHandler(id) {
+    let deleted = characters.filter((character) => character.id !== Number(id));
+
+    dispatch(removeFavorite(id));
+
+    setCharacters(deleted);
+  }
+
+  function randomHandler() {
+    let haveIt = [];
+    //Generate random number
+    let random = (Math.random() * 826).toFixed();
+
+    //Coerce to number by boxing
+    random = Number(random);
+
+    if (!haveIt.includes(random)) {
+      haveIt.push(random);
+      fetch(`https://rickandmortyapi.com/api/character/${random}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.name) {
+            setCharacters((oldChars) => [...oldChars, data]);
+          } else {
+            window.alert("No hay personajes con ese ID");
+          }
+        });
+    } else {
+      console.log("Ya agregaste todos los personajes");
+      return false;
+    }
+  }
 
   return (
-    <div className='App' style={{ padding: '25px', alignItems: 'center', textAlign: 'center' }}>
-        
-      { location.pathname === '/' || location.pathname.includes('detail') ? null : <NavBar onSearch={onSearch} />}
-  
-      <div style={{flexDirection: 'row' }}>
-      
-      
-      <div className={styles.blurIn}>
-      <br/><br/><br/><br/>
-      {location.pathname ==='/' || location.pathname !== '/home' || 
-       location.pathname === '/favorites' || 
-       location.pathname === '/detail/:`${id}`' || location.pathname !== '/about' && (
-        <button className={styles.randomChar} onClick={randomCharacter}>RANDOM CHAR
-        <img src='https://www.comoaprenderdesenhar.com.br/wp-content/uploads/2020/10/como-desenhar-morty.png' style={{ width: '1.1em', height: '0.9em', 
-          marginRight: '-0.1em', marginLeft: '0.3em' }} />
-          
-           </button> 
-  
-            )}
-      </div>
+    <div className="App">
+      <img className="title" src={logoRM} alt="logo" />
+
+      {location.pathname !== "/" && (
+        <Navbar onSearch={searchHandler} random={randomHandler} />
+      )}
+
       <Routes>
-        
-        <Route path='/' element={<Form login={login}/> }/>
-
-          <Route path='/home'
-           element={<Cards onClose={onClose}characters={characters} />} />
-
-          <Route path='/favorites' element={<Favorites />}/>
-          <Route path='/about' element={<About />} />
-          <Route path='/detail/:detailId' element={<Detail />} />
-          <Route path='/error404' element={ <Error /> } />
-        </Routes>
-      </div>
-
+        <Route path="/" element={<LandingPage login={login} />} />
+        <Route
+          path="/home"
+          element={<Cards characters={characters} onClose={closeHandler} />}
+        />
+        <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/favorites" element={<Favorties />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
     </div>
-  )
+  );
 }
 
-//Exportación de la app
 export default App;

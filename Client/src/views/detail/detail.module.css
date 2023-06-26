@@ -1,0 +1,210 @@
+@font-face {
+    font-family: 'MyFont';
+    src: url('../../components/Fonts/shlop\ rg.otf');
+  }
+@import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Shrikhand&display=swap');
+
+ .card {
+    border-radius: 5em;
+    box-shadow: 0 2px 10px #06f1b6a8;
+    background-image: url('https://media4.giphy.com/media/n5GXsYKoe1F3eFcRgq/giphy.gif');
+    background-size: cover;
+    margin: 0;
+    padding: 50px;
+    width: 70em;
+    height: 39em;
+    top: 105%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    transition: 0.5s;
+    z-index: 2;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 5em;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(6px) brightness(0.3);
+    -webkit-backdrop-filter: blur(7px) brightness(0.3);
+  }
+
+  .card * {
+    position: relative;
+    z-index: 2;
+  }
+
+  .card:hover{
+    box-shadow: 0 0 1rem #06f1b6a8, 0 0 4rem #06f1b6a8;
+  } 
+
+.detail {
+    top: 3.1em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 1.4em;
+    z-index: 3;
+}
+
+.detail div{
+    width: fit-content;
+    margin-top: -1.6rem;
+    padding-right: 5.5em;
+}
+
+.container div h1{
+    font-family: 'Shrikhand', cursive;
+    font-size: 1.9em;
+    margin-left: -50%;
+    margin-right: -50%;
+    top: .1em;
+    color: rgba(190, 190, 190, 0.992);
+    text-shadow: 0 0 0.2rem #06f1b64a, 0 0 0.1rem #06f1b667 , 0 0 1rem #06f1b65b;
+    z-index: 3;
+}
+
+.container div h1:hover{
+    transform: scale(1.015);
+    color: #e7e3e3;
+    text-shadow: 0 0 0.2rem rgba(91, 237, 13, 0.186), 0 0 0.1rem rgba(89, 255, 0, 0.43), 0 0 1rem rgba(89, 255, 0, 0.43);
+}
+
+.container div label{
+    width: fit-content;
+    margin-left: 1.9rem;
+    font-family: 'Shrikhand', cursive;
+    font-size: 1.5em;
+    color: rgba(190, 190, 190, 0.992);
+    text-shadow: 0 0 0.2rem #06f1b64a, 0 0 0.1rem #06f1b667 , 0 0 1rem #06f1b65b;
+    border-radius: 0.3rem;
+}
+.container div label:hover{
+    transform: scale(1.10);
+    color: #ffffff;
+    text-shadow: 0 0 0.2rem #8000ff44, 0 0 0.1rem #8000ff44 , 0 0 1rem #8000ff44;
+}
+
+
+.titulos {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto auto;
+    grid-gap: 0.1rem;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: -.9em;
+}
+
+.titulos .id{
+    font-family: 'MyFont';
+    top: -0.2em;
+    color: #d2d0d0;
+    text-align: center;
+}
+
+.titulos .id:hover{
+    transform: scale(1.09);
+    color: rgb(136, 244, 141);
+    text-shadow: 0 0 0.2rem #06f1b64a, 0 0 0.1rem #06f1b667 , 0 0 1rem #06f1b65b;
+ }
+
+.titulos .estado{
+    font-family: 'MyFont';
+    top: -0.1em;
+    color: #d2d0d0;
+}
+ .titulos .estado:hover{
+    transform: scale(1.09);
+    color: rgb(136, 244, 141);
+    text-shadow: 0 0 0.2rem #06f1b64a, 0 0 0.1rem #06f1b667 , 0 0 1rem #06f1b65b;
+ }
+.titulos .origen{
+    font-family: 'MyFont';
+    top: -0.01em;
+    color: #d2d0d0;
+}
+.titulos .origen:hover{
+    transform: scale(1.02);
+    color: rgb(136, 244, 141);
+    text-shadow: 0 0 0.2rem #06f1b64a, 0 0 0.1rem #06f1b667 , 0 0 1rem #06f1b65b;
+ }
+.titulos .genero{
+    font-family: 'MyFont';
+    top: -0.01em;
+    color: #d2d0d0;
+}
+.titulos .genero:hover{
+    transform: scale(1.09);
+    color: rgb(136, 244, 141);
+    text-shadow: 0 0 0.2rem #06f1b64a, 0 0 0.1rem #06f1b667 , 0 0 1rem #06f1b65b;
+ }
+.titulos .especie{
+    font-family: 'MyFont';
+    top: -0.01em;
+    color: #d2d0d0;
+}
+.titulos .especie:hover{
+    transform: scale(1.04);
+    color: rgb(136, 244, 141);
+    text-shadow: 0 0 0.2rem #06f1b64a, 0 0 0.1rem #06f1b667 , 0 0 1rem #06f1b65b;
+ }
+
+.containerImg{
+    top: -1.7em;
+    margin-left: 1.2em;
+    opacity: 0.8;
+    display: flex;
+    justify-content: center;
+}
+.container div img{
+    width: 20rem;
+    height: 20rem;
+    border-radius: 9999rem;
+    overflow: hidden;
+    transition: .8s;
+    z-index: 2;
+}
+.container div img:hover{
+    transform: scale(1.03);
+    filter: brightness(1.2);
+    color: white;
+    background-color: #8000ff44;
+    box-shadow: 0 0 1rem #06f1b6a8, 0 0 2rem #06f1b6a8;
+}
+
+.link{
+    color: aliceblue;
+    text-decoration: none;
+}
+
+.container div button{
+    margin-left: -1rem;
+    border-radius: 5rem;
+    top: -1.2em;
+    margin-bottom: 0;
+    width: 6rem;
+    height: 2.8rem;
+    background: linear-gradient(rgba(81, 150, 110, 0.461), rgba(0, 0, 0, 0));
+    border: transparent;
+    overflow: hidden;
+    font-family: 'MyFont';
+    font-size: 1.7em;
+    transition: 300ms;
+}
+
+.container div button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    color: white;
+    background-color: #8000ff44;
+    box-shadow: 0 0 1rem #06f1b6a8, 0 0 4rem #06f1b6a8;
+}
+
+
+  

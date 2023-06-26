@@ -1,82 +1,97 @@
-import styles from './cardesign.module.css'
-import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { addFavorites, removeFavorites, removeFavoriteCharacter} from '../../redux/action';
+import {useNavigate} from "react-router-dom";
+import {connect} from "react-redux";
+import {useState, useEffect} from "react";
+import {addFavorite, removeFavorite} from "../../redux/actions";
+import style from "./card.module.css";
 
-const Card = ({id, name, species, gender, image, onClose, addFavorites, removeFavorites, removeFavoriteCharacter}) => 
-{
-   const [isFav, setisFav] = useState(false);
-   const favorites = useSelector(state => state.myFavorites);
-   
-   useEffect(() => {
-      favorites.forEach((fav) => {
-         if (fav.id === id) {
-            setisFav(true);
-         }
-      });
-   }, [favorites]);
-   
-   
-   const handleFavorite = () => {
-      if(isFav) {
-         setisFav(false);
-         removeFavorites(id);
-      }
-      else{   
-         setisFav(true)
-         addFavorites({id, name, species, gender, image})
-      }
-   }
+function Card(props) {
+  const navigate = useNavigate();
+  const {character, onClose, addFavorite, removeFavorite, favorites} = props;
+  const {image, name, species, gender, id} = character;
 
-   return (
-      <div className={styles.rotatescaledown}>
-      <div className={styles.card}>
-         <div>
-       { isFav ? (
-          <button className={styles.fav} onClick={handleFavorite}>
-          
-           <span className="material-symbols-outlined">❤️</span>
-           </button>) 
-           : 
-           (<button className={styles.fav} onClick={handleFavorite}>
-        
-           <span className="material-symbols-outlined">🤍</span>
-           </button>)
-         }
+  const [closeBtn, setCloseBtn] = useState(true);
+  const [fav, setFav] = useState(false);
 
-        <button className={styles.boton} onClick={() => {onClose();removeFavoriteCharacter(id)}} > 
-        <span className="material-symbols-outlined">
-        cancel</span></button> </div>
- 
-         <br/>
-         <img src={image} alt={name} />
-         <br/>
-        <h2 className={styles.name}>{name}</h2>
-        <hr style={{top:'2.1em'}}/>
-        <br/><br/><br/>
-           <Link to={`/detail/${id}`} className={styles.link} >
-              <h2 className={styles.details}>Details</h2>
-           </Link>
-        
-     </div> </div>
-   );
-}
-
- const mapDispatchToProps = (dispatch) => {
-      return{
-         addFavorites : (character) => {
-         dispatch(addFavorites(character));
-         },
-         removeFavorites : (id) => {
-         dispatch(removeFavorites(id));
-      },
-         removeFavoriteCharacter: (id) => {
-         dispatch(removeFavoriteCharacter(id));
-     }
+  useEffect(() => {
+    if (!onClose) {
+      setCloseBtn(false);
     }
+  }, []);
+
+  useEffect(() => {
+    favorites.forEach((fav) => {
+      if (fav.id === id) {
+        setFav(true);
+      }
+    });
+  }, [favorites]);
+
+  function navigateHandler() {
+    navigate(`/detail/${character.id}`);
+  }
+
+  function handleFavorite(character) {
+    if (!fav) {
+      addFavorite(character);
+      setFav(true);
+    } else {
+      removeFavorite(character);
+      setFav(false);
+    }
+  }
+
+  return (
+    <div className={style.cardContainer}>
+      <div className={style.imageContainer}>
+        <img
+          className={style.characterImage}
+          src={image}
+          alt={name}
+          onClick={navigateHandler}
+        />
+
+        <h2 className={style.name}>{name}</h2>
+
+        <div className={style.cornerContainer}>
+        {fav ? (
+          <button className={style.favoriteButton} onClick={() => handleFavorite(character.id)}>❤️</button>
+        ) : (
+          <button className={style.favoriteButton} onClick={() => handleFavorite(character)}>🤍</button>
+        )}
+        {closeBtn && (
+          <button
+            className={style.closeButton}
+            onClick={() => {
+              onClose(id);
+            }}
+          >
+            X
+          </button>
+        )}
+        </div>
+      </div>
+
+      <div className={style.atributes}>
+        <h2>{species}</h2>
+        <h2>{gender}</h2>
+      </div>
+    </div>
+  );
+
 }
 
-//Exportación de la función
-export default connect(null,mapDispatchToProps)(Card);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addFavorite: (character) => dispatch(addFavorite(character)),
+
+    removeFavorite: (id) => dispatch(removeFavorite(id)),
+  };
+};
+
+const mapStateToProps = (state) => {
+  return {
+    favorites: state.myFavorites,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Card);

@@ -1,0 +1,139 @@
+@font-face {
+  font-family: 'MyFont';
+  src: url('../Fonts/shlop\ rg.otf');
+}
+
+/* .MyFont {
+  font-family: 'MyFont';
+  src: url('../Fonts/shlop rg.otf');
+} */
+
+.cardContainer {
+  background-image: url('https://media.tenor.com/ES2gLiFcLsEAAAAM/rick-and-morty-morty.gif');
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 30px;
+  box-shadow: 0 2px 10px #5c06f1a8;
+  padding: 20px;
+  min-width: 14rem;
+  max-width: 14rem;
+  top: 60%;
+  left: 50%;
+  position: relative;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  font-family: 'MyFont';
+  transform: translate(-50%, -50%);
+  transition: 0.5s;
+  z-index: 2;
+}
+
+.cardContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 30px;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(12px) brightness(0.5);
+  -webkit-backdrop-filter: blur(10px) brightness(0.2);
+}
+
+.cardContainer * {
+  position: relative;
+  z-index: 3;
+}
+
+.cardContainer:hover {
+  margin-top: 1px;
+  scale: 1.03 1.03;
+  cursor: pointer;
+  box-shadow: 0 0 1rem rgba(216, 89, 11, 0.638), 0 0 2rem rgba(255, 147, 80, 0.461), 0 0 4rem rgba(255, 147, 80, 0.461);
+}
+
+.cardContainer img {
+  top: 1.2em;
+  font-family: 'MyFont';
+  box-shadow: 0 2px 1em #c88209;
+  border-radius: 2em;
+  height: 200px;
+  width: 100%;
+  opacity: 0.6;
+}
+
+.cardContainer img:hover {
+  opacity: 1;
+  transform: scale(1.03);
+  filter: brightness(1.1);
+}
+
+.link {
+  color: aliceblue;
+  text-decoration: none;
+}
+
+.cardContainer .name {
+  top: 1.6rem;
+  font-family: 'MyFont';
+  font-size: 2.1em;
+  color: #f3e81fe7;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  transition: .8s;
+  text-shadow: 0 0 .2rem rgba(0, 0, 0, 0.461), 0 0 .1rem rgba(0, 0, 0, 0.461), 0 0 .8rem rgba(0, 0, 0, 0.461);
+}
+
+.cardContainer .name:hover {
+  cursor: pointer;
+  transform: scale(1.09);
+  color: #ff69bbfb;
+  text-shadow: 0 0 .2rem rgba(0, 0, 0, 0.461), 0 0 .1rem rgba(81, 255, 110, 0.461), 0 0 .8rem rgba(0, 0, 0, 0.461);
+}
+
+.cardContainer .atributes {
+  font-family: 'MyFont';
+  font-size: 1.4em;
+  color: #f3e81fe7;
+  margin-top: 1rem;
+  transition: .8s;
+  text-shadow: 0 0 .2rem rgba(0, 0, 0, 0.461), 0 0 .1rem rgba(0, 0, 0, 0.461), 0 0 .8rem rgba(0, 0, 0, 0.461);
+}
+
+.cardContainer .atributes span {
+  display: flex;
+  justify-content: center;
+}
+
+.cardContainer .atributes span:hover {
+  color: #ff69bbfb;
+  text-shadow: 0 0 .2rem rgba(0, 0, 0, 0.461), 0 0 .1rem rgba(81, 255, 110, 0.461), 0 0 .8rem rgba(0, 0, 0, 0.461);
+}
+
+.cardContainer .cornerContainer {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  /* Resto de estilos... */
+}
+
+.cardContainer .cornerContainer button {
+  display: block;
+  /* Resto de estilos... */
+}
+
+.cardContainer .cornerContainer .favoriteButton {
+  position: absolute;
+  top: -10px;
+  right: 150px;
+  z-index: 2;
+}
+
+.cardContainer .cornerContainer .closeButton {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  z-index: 1;
+}
